@@ -1,0 +1,15 @@
+# Node/Next
+node_modules
+.next
+out
+
+# Env (very important)
+.env*
+
+# macOS cruft
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
