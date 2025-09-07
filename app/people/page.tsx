@@ -7,14 +7,28 @@ export default function PeoplePage() {
     name: "Jeffrey Bazar",
     role: "Founder & Managing Partner",
     backstory:
-      `Jeffrey started JBV Capital with a simple idea: exceptional founders create the future by compounding small, correct decisions. Before JBV, he partnered with technical teams across infrastructure, data, and applied AI—helping products find their earliest believers. He loves messy zero-to-one problems, crisp product taste, and distribution that looks “non-obvious” at first—until it isn’t.`,
+      `I’m Jeffrey Bazar. My journey in technology and venture investing has been shaped by curiosity, teamwork, and a passion for building solutions that push boundaries.
+My story began with iPath Technologies, the company I co-founded and led as CEO. We built tools to simplify complex network challenges—and that effort paved the way for future achievements when iPath was acquired by Solunet. That experience taught me not only the thrill of building something from scratch but also the humility of collaborating toward a shared vision.
+Since then, I've been fortunate to work alongside extraordinary teams across many transformative companies. At Cariden Technologies, where I played a role in strategic growth, the company ultimately became part of Cisco Systems. At Deepfield Networks, I worked closely on cloud-based network intelligence solutions before its acquisition by Nokia Systems. I also served as an investor or board member for Sinefa (acquired by Palo Alto Networks) and PathologyWatch (acquired by Sonic Healthcare). Each of these experiences reinforced a central belief: real innovation is born where technology, purpose, and opportunity intersect. 
+JBV Capital
+MarketScreener
+In 2017, I founded JBV Capital in San Francisco, driven by a desire to help early-stage AI and infrastructure software founders navigate the journey—from idea to impact. Through JBV, I've been proud to support and invest in startups that combine technical rigor with a clear vision for how their platforms transform industries. 
+askforfunding.com
+Today, in addition to leading JBV Capital, I co-found and help steer Luna XIO, where we’re building open, secure, and scalable tracking systems for IoT—blending ingenuity with practical value. I also serve on the boards of Placer.ai and Leela.ai, working with teams delivering powerful analytics, location intelligence, and visual AI for improved business outcomes. 
+JBV Capital
+THE ORG
+Luna XIO
+Through these chapters, what remains constant is my commitment—to build thoughtfully, to listen deeply, and to partner with mission-driven founders who share the belief that better tools can empower better futures.`,
     lookout: [
-      "Foundational & Infrastructure AI: model tooling, safety, evaluation, inference, data engines.",
-      "Applied AI with clear wedge: vertical workflows where latency, privacy, or unit economics matter.",
-      "Distribution advantage: founder-market fit, unique channels, or community-driven motion.",
-      "Earned secrets: technical insight that makes the solution 10× better—not 10% better.",
-      "Early evidence of pull: design partners, repeat usage, strong retention—or clear plan to get there.",
-      "Teams that ship: fast iteration, story-driven product, and taste in the details.",
+      "I invest not for the sake of growth alone, but to find partners whose ambitions align with a clear, meaningful purpose.",
+      "I look for entrepreneurs who are:",
+      "Honestly Bold: Visionaries with big ideas but a grounded humility—who pair ambition with empathy, resilience, and a readiness to adapt.",
+      "Trustworthy & Transparent: In high-stakes decisions, the way you communicate matters as much as what you build. I value founders who invite transparency, embrace honest feedback, and cultivate openness with their teams—and with investors.",
+      "Founder-Led, Founder-First: Those who deeply understand their users and their product, and who lead with both technical mastery and emotional intelligence.",
+      "Mission-Aligned: I’m most excited by companies that don’t just chase market share but want to solve real problems, whether that’s improving medical diagnostics, enhancing operational efficiency in supply chains, or rethinking how workplaces function in an AI-enabled era.",
+      "Long-Term Thinkers: Building great companies takes time, grit, and patience. I back founders who envision enduring impact—they’re in it for the right reasons, not just for quick returns.",
+      "Ultimately, I view myself less as a traditional investor and more as a partner in possibility—someone who’s committed to helping you navigate uncertainty, scale responsibly, and stay true to the values that got you started.",
+      "So if you're building something with intention, something you believe deserves to be more than just a product, I’m here to listen, support, and invest in ideas that matter",
     ],
     investments: ["OpenAI", "Anthropic", "Databricks", "Perplexity", "Lovable"],
     email: "jb@jbv.com",
