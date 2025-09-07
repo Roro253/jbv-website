@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { sha256base64url } from '@/lib/tokens';
 import { getValidMagicRecord, markMagicUsed } from '@/lib/airtable';
-import { getIronSession } from 'iron-session/edge';
+import { getIronSession } from 'iron-session';
+import { cookies } from 'next/headers';
 import { ironOptions, type SessionData } from '@/lib/session';
 
 export async function GET(req: Request) {
@@ -20,9 +21,10 @@ export async function GET(req: Request) {
   await markMagicUsed(rec.id);
 
   const res = NextResponse.redirect(new URL(next, req.url));
-  const session = await getIronSession<SessionData>(req, res, ironOptions);
+  const session = await getIronSession<SessionData>(cookies(), ironOptions);
   session.email = email;
   await session.save();
   return res;
 }
-
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';

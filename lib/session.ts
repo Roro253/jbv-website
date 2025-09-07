@@ -1,6 +1,7 @@
-import { getIronSession, type IronSessionOptions } from 'iron-session/edge';
+import { getIronSession, type IronSessionOptions } from 'iron-session';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export type SessionData = { email?: string };
 
@@ -16,9 +17,8 @@ export const ironOptions: IronSessionOptions = {
   ttl: 60 * 60 * 24 * 7, // 7 days
 };
 
-export async function getSession(req: NextRequest) {
+export async function getSession(_req: NextRequest) {
   const res = NextResponse.next();
-  const session = await getIronSession<SessionData>(req, res, ironOptions);
+  const session = await getIronSession<SessionData>(cookies(), ironOptions);
   return { session, res } as const;
 }
-
