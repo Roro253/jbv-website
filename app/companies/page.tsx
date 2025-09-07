@@ -1,12 +1,21 @@
 'use client';
+export const dynamic = "force-dynamic";
+import { Suspense, useMemo, useState, useEffect } from "react";
 import { companies, sectors } from "@/lib/companies";
 import FilterChips from "@/components/FilterChips";
-import { useMemo, useState, useEffect } from "react";
 import CompaniesGridA16z from "@/components/companies/CompaniesGridA16z";
 import CompanyModalA16z from "@/components/companies/CompanyModalA16z";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function CompaniesPage() {
+  return (
+    <Suspense fallback={<main className="container-6xl py-10"><h1 className="text-3xl font-semibold">Companies</h1></main>}>
+      <CompaniesPageInner />
+    </Suspense>
+  );
+}
+
+function CompaniesPageInner() {
   // JBV: COMPANIES DATA WIRE-UP START
   // Fetch Airtable-backed companies and shadow the existing data without changing layout.
   const REFRESH_SECONDS = 21600; // 6h

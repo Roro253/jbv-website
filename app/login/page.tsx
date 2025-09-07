@@ -1,8 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+export const dynamic = "force-dynamic";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="container-6xl py-10"><div className="max-w-md"><div className="card p-6"><h1 className="text-2xl font-semibold mb-4">Sign in</h1></div></div></div>}>
+      <LoginPageInner />
+    </Suspense>
+  );
+}
+
+function LoginPageInner() {
   const params = useSearchParams();
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -62,4 +71,3 @@ export default function LoginPage() {
     </main>
   );
 }
-
