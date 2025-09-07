@@ -1,4 +1,5 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getField, safeUrl } from "@/components/companies/utils";
@@ -31,17 +32,8 @@ export default function CompanyCardA16z({ record, onOpen }: { record: RecordType
   }
   const theme = companyThemes[canonicalKey()];
 
-  const [imgSrc, setImgSrc] = ((): [string | undefined, (v: string) => void] => {
-    // local state without importing useState at top to keep minimal diff
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const React = require("react");
-    const [src, setSrc] = React.useState<string | undefined>(undefined);
-    React.useEffect(() => {
-      const base = deriveLogoUrl(record);
-      setSrc(base);
-    }, [record]);
-    return [src, setSrc];
-  })();
+  const [imgSrc, setImgSrc] = useState<string | undefined>(() => deriveLogoUrl(record));
+  useEffect(() => { setImgSrc(deriveLogoUrl(record)); }, [record]);
 
   return (
     <button
