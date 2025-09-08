@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getField, safeUrl } from "@/components/companies/utils";
@@ -11,7 +11,7 @@ import { companyThemes } from "@/components/companies/companyThemes";
 
 type RecordType = { id: string; fields: Record<string, any>; logoUrl?: string };
 
-export default function CompanyCardA16z({ record, onOpen }: { record: RecordType; onOpen: (id: string) => void }) {
+export default function CompanyCardA16z({ record, onOpen, cover }: { record: RecordType; onOpen: (id: string) => void; cover?: ReactNode }) {
   const fields = record.fields || {};
   const name = (getField<string>(fields, "Name", "Company", "Title") || record.id).toString();
   const summary = (getField<string>(fields, "Description", "Category") ?? "").toString();
@@ -42,28 +42,19 @@ export default function CompanyCardA16z({ record, onOpen }: { record: RecordType
       className={`group w-full text-left rounded-2xl border hover:shadow-lg transition overflow-hidden relative ${theme?.cardClass ?? (isAnthropic ? "border-transparent bg-[#0A0F1E] text-white shadow-[0_12px_40px_-12px_rgba(0,0,0,0.5)]" : "border-black/10 bg-white")}`}
       aria-label={`Open details for ${name}`}
     >
-      {theme?.Art ? <theme.Art /> : null}
-      {/* JBV: BEGIN card header graphics */}
-      <div className={`h-16 ${t.header}`}>
-        <div className={t.pattern} />
-      </div>
-      {/* JBV: END card header graphics */}
-      <div className={isAnthropic ? "relative p-4" : "p-4"}>
-        {/* Anthropic-only background layers within the body */}
-        {isAnthropic && (
-          <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(600px_200px_at_20%_20%,rgba(255,255,255,0.10),transparent_60%),radial-gradient(500px_200px_at_80%_80%,rgba(255,255,255,0.08),transparent_55%)]" />
-            <div
-              className="absolute inset-0 opacity-10 mix-blend-overlay"
-              style={{
-                backgroundImage: "url('/logos/claude.png')",
-                backgroundRepeat: "repeat",
-                backgroundSize: "220px",
-                backgroundPosition: "center",
-              }}
-            />
-          </div>
-        )}
+      {!cover && theme?.Art ? <theme.Art /> : null}
+      {/* Animated cover area (brand-specific) or fallback header */}
+      {cover ? (
+        <div className="relative h-44 w-full overflow-hidden">
+          {cover}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-transparent" />
+        </div>
+      ) : (
+        <div className={`h-16 ${t.header}`}>
+          <div className={t.pattern} />
+        </div>
+      )}
+      <div className="relative p-4 bg-white border-t border-black/10">
         <div className="relative flex items-start gap-3">
           {/* JBV: BEGIN card logo usage */}
           {(() => {
@@ -91,8 +82,8 @@ export default function CompanyCardA16z({ record, onOpen }: { record: RecordType
           })()}
           {/* JBV: END card logo usage */}
           <div className="min-w-0">
-            <div className={`text-base font-semibold truncate ${theme?.titleClass ?? (isAnthropic ? "text-white" : "text-slate-900")}`}>{name}</div>
-            <div className={`${theme?.bodyClass ?? (isAnthropic ? "text-white/80" : "text-slate-600")} text-sm truncate`} title={summary}>{summary}</div>
+            <div className="text-base font-semibold truncate text-slate-900">{name}</div>
+            <div className="text-slate-600 text-sm truncate" title={summary}>{summary}</div>
           </div>
         </div>
         {website && (
@@ -101,7 +92,7 @@ export default function CompanyCardA16z({ record, onOpen }: { record: RecordType
             onClick={(e) => e.stopPropagation()}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center text-sm font-medium ${theme?.linkClass ?? (isAnthropic ? "text-white/90 hover:text-white" : "text-slate-700 hover:text-slate-900")}`}
+            className="inline-flex items-center text-sm font-medium text-slate-700 hover:text-slate-900"
             aria-label={`Visit ${name} website`}
           >
             Visit website →

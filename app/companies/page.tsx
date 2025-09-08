@@ -64,6 +64,10 @@ function CompaniesPageInner() {
   const dataCompanies = Array.isArray(remote) && remote.length > 0 ? remote : companies;
   // JBV: COMPANIES DATA WIRE-UP END
   const [sector, setSector] = useState<string>("All");
+  const chipOptions = useMemo(
+    () => sectors.filter((s) => !["Biotech", "Consumer", "Crypto", "Healthcare", "Insurance"].includes(String(s))),
+    []
+  );
   const filtered = useMemo(() => {
     return sector === "All" ? dataCompanies : dataCompanies.filter(c => c.sector === sector);
   }, [sector, dataCompanies]);
@@ -115,8 +119,9 @@ function CompaniesPageInner() {
         <p className="prose-muted mt-2">Browse portfolio companies by sector and stage.</p>
       </div>
 
+
       <section className="mb-6">
-        <FilterChips options={[...sectors]} value={sector} onChange={setSector} />
+        <FilterChips options={chipOptions as any} value={sector} onChange={setSector} />
       </section>
 
       <CompaniesGridA16z items={items} onOpen={handleOpen} />

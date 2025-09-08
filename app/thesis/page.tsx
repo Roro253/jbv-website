@@ -1,13 +1,15 @@
 export const dynamic = "force-dynamic";
 import React from "react";
+import StackEvolution from '@/components/thesis/StackEvolution';
 import nextDynamic from "next/dynamic";
-const ThesisBackground = nextDynamic(() => import('@/components/anim/ThesisBackground'), { ssr: false });
+const ThesisBackground = nextDynamic(() => import('@/components/thesis/bg/ThesisBackground'), { ssr: false });
 const Reveal = nextDynamic(() => import('@/components/anim/Reveal'), { ssr: false });
+import StartupStack from '@/components/thesis/StartupStack';
 
 export default function ThesisPage() {
   return (
     <main className="relative bg-white text-slate-900">
-      <ThesisBackground className="-z-10" />
+      <ThesisBackground />
       {/* Futuristic light background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-32 -left-24 h-[40rem] w-[40rem] rounded-full blur-3xl opacity-40 bg-gradient-to-br from-sky-100 to-blue-200 animate-[float_24s_ease-in-out_infinite] motion-reduce:animate-none" />
@@ -36,6 +38,8 @@ export default function ThesisPage() {
           </p></Reveal>
         </div>
       </section>
+      <section id="build-stack" className="scroll-mt-24"><StartupStack/></section>
+      <section id="stack" className="scroll-mt-24"><StackEvolution/></section>
       <section className="relative z-10 border-t border-slate-200/60 bg-white/70 backdrop-blur">
         <div className="container-6xl py-16">
           <div className="grid md:grid-cols-3 gap-10 items-start">

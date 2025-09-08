@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { appDir: true },
   // JBV: BEGIN images allowlist
   images: {
     remotePatterns: [

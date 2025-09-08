@@ -9,3 +9,12 @@
 .container-6xl { @apply mx-auto max-w-6xl px-4; }
 .card { @apply rounded-2xl border bg-white; }
 .link { @apply underline underline-offset-4 decoration-gray-300 hover:decoration-brand-500; }
+
+:root{
+  --jbv-accent:#0A68FF;
+  --jbv-accent-2:#8B5CF6;
+}
+.dark:root{
+  --jbv-accent:#5BA2FF;
+  --jbv-accent-2:#A78BFA;
+}

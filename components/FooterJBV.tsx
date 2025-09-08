@@ -47,6 +47,16 @@ export default function FooterJBV() {
             <ul className="space-y-2">
               <li><Link href="#" className="hover:text-white transition">About</Link></li>
               <li><Link href="#" className="hover:text-white transition">News</Link></li>
+              <li>
+                <Link
+                  href="https://invest.jbv.com/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition"
+                >
+                  LP Login
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -63,7 +73,16 @@ export default function FooterJBV() {
           <div className="space-y-4">
             <h3 className="text-xs uppercase tracking-widest text-white/70">Connect</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="hover:text-white transition">Contact</Link></li>
+              <li>
+                <a
+                  href="mailto:jb@jbv.com?subject=Inquiry%20%E2%80%94%20JBV%20Capital&body=Hi%20JBV%20Capital%20team%2C%0D%0A%0D%0A"
+                  className="hover:text-white transition"
+                  aria-label="Email JBV Capital"
+                  title="Email JBV Capital"
+                >
+                  Contact
+                </a>
+              </li>
               <li><Link href="#" className="hover:text-white transition">Blog</Link></li>
             </ul>
           </div>

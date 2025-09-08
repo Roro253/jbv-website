@@ -66,7 +66,7 @@ export default function AssistantChat() {
   }, []);
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto">
       {error && (
         <div className="mb-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">{error}</div>
       )}
@@ -86,7 +86,10 @@ export default function AssistantChat() {
       </div>
 
       {/* Transcript */}
-      <div ref={scrollRef} className="h-[70vh] w-full rounded-2xl border border-black/10 bg-white/70 backdrop-blur overflow-y-auto p-4 space-y-3">
+      <div
+        ref={scrollRef}
+        className="h-[60vh] w-full rounded-2xl border border-sky-100 bg-gradient-to-br from-sky-50 to-blue-50/60 overflow-y-auto p-4 space-y-3 shadow-sm"
+      >
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div className={`${m.role === "user" ? "bg-slate-900 text-white" : "bg-gradient-to-br from-slate-50 to-white text-slate-900 border"} relative max-w-[85%] rounded-2xl px-4 py-3 border-black/10 shadow-sm`}
@@ -124,12 +127,12 @@ export default function AssistantChat() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={onKeyDown}
           placeholder="Ask anything about JBV or our ecosystem…"
-          className="flex-1 min-h-[46px] max-h-40 rounded-xl border border-black/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-300"
+          className="flex-1 min-h-[44px] max-h-36 rounded-xl border border-sky-200 bg-white/90 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
         />
         <button
           type="submit"
           disabled={!canSend}
-          className="h-[46px] px-4 rounded-xl bg-slate-900 text-white disabled:opacity-50"
+          className="h-[44px] px-4 rounded-xl bg-[--jbv-accent] text-white disabled:opacity-50 hover:brightness-105"
         >
           {loading ? "…" : "Send"}
         </button>
@@ -137,4 +140,3 @@ export default function AssistantChat() {
     </div>
   );
 }
-
