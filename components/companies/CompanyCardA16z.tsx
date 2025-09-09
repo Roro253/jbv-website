@@ -45,12 +45,12 @@ export default function CompanyCardA16z({ record, onOpen, cover }: { record: Rec
       {!cover && theme?.Art ? <theme.Art /> : null}
       {/* Animated cover area (brand-specific) or fallback header */}
       {cover ? (
-        <div className="relative h-44 w-full overflow-hidden">
+        <div className="relative h-52 w-full overflow-hidden">
           {cover}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-transparent" />
         </div>
       ) : (
-        <div className={`h-16 ${t.header}`}>
+        <div className={`h-20 ${t.header}`}>
           <div className={t.pattern} />
         </div>
       )}
@@ -63,9 +63,9 @@ export default function CompanyCardA16z({ record, onOpen, cover }: { record: Rec
               <Image
                 src={isAnthropic ? (imgSrc || "/logos/claude.png") : (logo as string)}
                 alt={`${name} logo`}
-                width={56}
-                height={56}
-                className="h-14 w-14 rounded-full bg-white object-contain ring-1 ring-black/5"
+                width={64}
+                height={64}
+                className="h-16 w-16 rounded-full bg-white object-contain ring-1 ring-black/5"
                 priority={false}
                 onError={() => {
                   if (isAnthropic) {
@@ -75,7 +75,7 @@ export default function CompanyCardA16z({ record, onOpen, cover }: { record: Rec
                 }}
               />
             ) : (
-              <div className="h-14 w-14 rounded-full bg-slate-100 ring-1 ring-black/5 flex items-center justify-center text-slate-500 font-semibold">
+              <div className="h-16 w-16 rounded-full bg-slate-100 ring-1 ring-black/5 flex items-center justify-center text-slate-500 font-semibold">
                 {name?.[0]?.toUpperCase() ?? "•"}
               </div>
             );
