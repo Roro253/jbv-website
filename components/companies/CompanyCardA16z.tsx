@@ -45,17 +45,17 @@ export default function CompanyCardA16z({ record, onOpen, cover }: { record: Rec
       {!cover && theme?.Art ? <theme.Art /> : null}
       {/* Animated cover area (brand-specific) or fallback header */}
       {cover ? (
-        <div className="relative h-52 w-full overflow-hidden">
+        <div className="relative h-64 w-full overflow-hidden">
           {cover}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-transparent" />
         </div>
       ) : (
-        <div className={`h-20 ${t.header}`}>
+        <div className={`h-24 ${t.header}`}>
           <div className={t.pattern} />
         </div>
       )}
-      <div className="relative p-4 bg-white border-t border-black/10">
-        <div className="relative flex items-start gap-3">
+      <div className="relative p-6 bg-white border-t border-black/10">
+        <div className="relative flex items-start gap-4">
           {/* JBV: BEGIN card logo usage */}
           {(() => {
             const logo = deriveLogoUrl(record);
@@ -63,9 +63,9 @@ export default function CompanyCardA16z({ record, onOpen, cover }: { record: Rec
               <Image
                 src={isAnthropic ? (imgSrc || "/logos/claude.png") : (logo as string)}
                 alt={`${name} logo`}
-                width={64}
-                height={64}
-                className="h-16 w-16 rounded-full bg-white object-contain ring-1 ring-black/5"
+                width={80}
+                height={80}
+                className="h-20 w-20 rounded-full bg-white object-contain ring-1 ring-black/5"
                 priority={false}
                 onError={() => {
                   if (isAnthropic) {
@@ -75,14 +75,14 @@ export default function CompanyCardA16z({ record, onOpen, cover }: { record: Rec
                 }}
               />
             ) : (
-              <div className="h-16 w-16 rounded-full bg-slate-100 ring-1 ring-black/5 flex items-center justify-center text-slate-500 font-semibold">
+              <div className="h-20 w-20 rounded-full bg-slate-100 ring-1 ring-black/5 flex items-center justify-center text-slate-500 font-semibold">
                 {name?.[0]?.toUpperCase() ?? "•"}
               </div>
             );
           })()}
           {/* JBV: END card logo usage */}
           <div className="min-w-0">
-            <div className="text-base font-semibold truncate text-slate-900">{name}</div>
+            <div className="text-lg font-semibold truncate text-slate-900">{name}</div>
             <div className="text-slate-600 text-sm truncate" title={summary}>{summary}</div>
           </div>
         </div>
