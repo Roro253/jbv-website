@@ -1,11 +1,30 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, ReactNode } from "react";
 import { getField, logoFromFields, safeUrl, formatPct, formatMoneyString } from "@/components/companies/utils";
 import { deriveLogoUrl } from "@/components/companies/logo";
 import { STATIC_DESCRIPTIONS } from "@/components/companies/staticDescriptions";
 import { companyThemes, canonicalKey } from "@/components/companies/companyThemes";
+import OpenAICover from "@/components/companyCovers/OpenAICover";
+import AnthropicCover from "@/components/companyCovers/AnthropicCover";
+import PerplexityCover from "@/components/companyCovers/PerplexityCover";
+import DatabricksCover from "@/components/companyCovers/DatabricksCover";
+import LovableCover from "@/components/companyCovers/LovableCover";
+import DefaultCover from "@/components/companyCovers/DefaultCover";
 
 type RecordType = { id: string; fields: Record<string, any>; logoUrl?: string };
+
+function coverFor(record: RecordType): ReactNode {
+  const fields = record.fields || {};
+  const name = (getField<string>(fields, "Name", "Company", "Title") || record.id).toString().toLowerCase();
+  const slug = (getField<string>(fields, "Slug") || name).toString().toLowerCase();
+  const key = `${slug} ${name}`;
+  if (key.includes("openai")) return <OpenAICover />;
+  if (key.includes("anthropic")) return <AnthropicCover />;
+  if (key.includes("perplex")) return <PerplexityCover />;
+  if (key.includes("databrick")) return <DatabricksCover />;
+  if (key.includes("lovable")) return <LovableCover />;
+  return <DefaultCover />;
+}
 
 export default function CompanyModalA16z({ record, onClose }: { record: RecordType | null; onClose: () => void }) {
   const open = !!record;
@@ -90,6 +109,7 @@ export default function CompanyModalA16z({ record, onClose }: { record: RecordTy
   if (!open || !record) return null;
   const key = canonicalKey({ slug: getField<string>(record.fields as any, "Slug"), name });
   const theme = companyThemes[key];
+  const cover = coverFor(record);
 
   return (
     <div
@@ -104,17 +124,24 @@ export default function CompanyModalA16z({ record, onClose }: { record: RecordTy
         aria-hidden="true"
       />
       <div className="relative h-full w-full overflow-y-auto p-4 md:p-8">
-        <div ref={panelRef} className={`mx-auto max-w-4xl rounded-2xl shadow-2xl p-6 md:p-8 focus:outline-none relative overflow-hidden ${theme?.modalClass ?? "bg-white"}`}>
+        <div ref={panelRef} className="mx-auto max-w-5xl rounded-2xl shadow-2xl focus:outline-none relative overflow-hidden">
+          {cover ? (
+            <div aria-hidden className="absolute inset-0">
+              {cover}
+              <div className="absolute inset-0 bg-white/70 backdrop-blur-sm" />
+            </div>
+          ) : null}
           {theme?.ModalArt ? <theme.ModalArt /> : null}
           {theme?.ModalArt ? (
             <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_0%,rgba(0,0,0,0.25),transparent_60%)]" />
           ) : null}
 
-          {/* Header */}
-          <div className="relative flex items-center justify-between">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="h-14 w-14 rounded-full bg-white ring-1 ring-black/5 flex items-center justify-center overflow-hidden">
-                {(() => {
+          <div className="relative p-6 md:p-8">
+            {/* Header */}
+            <div className="relative flex items-center justify-between">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="h-14 w-14 rounded-full bg-white ring-1 ring-black/5 flex items-center justify-center overflow-hidden">
+                  {(() => {
                   const src = isAnthropic ? (logoSrc || "/logos/claude.png") : logoSrc;
                   return src ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -203,6 +230,7 @@ export default function CompanyModalA16z({ record, onClose }: { record: RecordTy
         </div>
       </div>
     </div>
+  </div>
   );
 }
 
