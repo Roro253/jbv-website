@@ -1,7 +1,6 @@
 # Abstract-like VC Site Starter (Next.js + Tailwind)
 
-This is a clean, modern starter that **recreates the layout, information architecture, and motion patterns** of leading VC firm sites — inspired by Abstract VC — **without copying any proprietary text, logos, or assets**.
-
+This is a clean, modern starter that **recreates the layout, information architecture, and motion patterns** of leading VC firm sites — 
 > Replace all placeholder content with your own brand, imagery, and copy before publishing.
 
 ## What’s included
@@ -19,11 +18,6 @@ npm i
 npm run dev
 # open http://localhost:3000
 ```
-
-## Ethically reverse-engineered
-- No scraped stylesheets, no hotlinked assets, and no copied bios.
-- Team member names/titles are factual public info; feel free to replace with your own.
-- Company names are shown as text only; **do not** reuse other firms' logo images.
 
 ## Customize
 - Colors & typography: edit `tailwind.config.ts` and `app/layout.tsx` (Inter font).
