@@ -13,10 +13,11 @@ export function deriveLogoUrl(record: { fields: Record<string, any>, logoUrl?: s
   }
 
   const fields = record?.fields || {};
-  const keys = ["Company Logo", "Logo", "logo", "Image"];
+  const keys = ["Company Logo", "Logo", "logo", "Image", "Logo URL"];
   for (const k of keys) {
     const atts = (fields as any)[k];
     if (Array.isArray(atts) && atts.length && atts[0]?.url) return String(atts[0].url);
+    if (typeof atts === "string" && atts.trim().length > 0) return atts.trim();
   }
   return undefined;
 }

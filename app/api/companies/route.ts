@@ -60,9 +60,17 @@ export async function GET(req: Request) {
     const data = await fetchAirtable(apiUrl);
     const items = (data.records as AirtableRecord[]).map((rec) => {
       let logoUrl: string | undefined;
-      const logo = rec.fields?.Logo as any;
-      if (Array.isArray(logo) && logo.length && logo[0]?.url) {
-        logoUrl = logo[0].url as string;
+      const logoKeys = ['Logo', 'Company Logo', 'logo', 'Image', 'Logo URL'];
+      for (const key of logoKeys) {
+        const val = (rec.fields as any)[key];
+        if (Array.isArray(val) && val.length && val[0]?.url) {
+          logoUrl = val[0].url as string;
+          break;
+        }
+        if (typeof val === 'string' && val.trim().length > 0) {
+          logoUrl = val.trim();
+          break;
+        }
       }
       return { id: rec.id, fields: rec.fields, logoUrl };
     });
