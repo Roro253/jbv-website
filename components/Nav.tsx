@@ -28,6 +28,7 @@ export default function Nav() {
           <Link href="/people" className="hover:text-[var(--jbv-accent)] transition-colors">People</Link>
           <Link href="/companies" className="hover:text-[var(--jbv-accent)] transition-colors">Companies</Link>
           <Link href="/assistant" className="hover:text-[var(--jbv-accent)] transition-colors">JBV Assistant</Link>
+          <Link href="/returns-estimator" className="hover:text-[var(--jbv-accent)] transition-colors">Returns Estimator</Link>
         </nav>
 
         {/* Mobile trigger */}
@@ -62,6 +63,7 @@ export default function Nav() {
             <Link href="/people" onClick={() => setOpen(false)} className="rounded-xl border border-black/10 px-4 py-3 bg-white hover:bg-sky-50 transition">People</Link>
             <Link href="/companies" onClick={() => setOpen(false)} className="rounded-xl border border-black/10 px-4 py-3 bg-white hover:bg-sky-50 transition">Companies</Link>
             <Link href="/assistant" onClick={() => setOpen(false)} className="rounded-xl border border-black/10 px-4 py-3 bg-white hover:bg-sky-50 transition">JBV Assistant</Link>
+            <Link href="/returns-estimator" onClick={() => setOpen(false)} className="rounded-xl border border-black/10 px-4 py-3 bg-white hover:bg-sky-50 transition">Returns Estimator</Link>
             </div>
           </div>
       </div>

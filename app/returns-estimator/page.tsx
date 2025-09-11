@@ -40,6 +40,20 @@ export default function ReturnsEstimatorPage(){
 
   return (
     <div className="container-6xl py-6 space-y-6">
+      {!accepted && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+          <div className="bg-background border rounded-2xl p-6 max-w-lg mx-4 space-y-4 text-sm">
+            <h2 className="text-lg font-semibold">Educational Only</h2>
+            <p>
+              This tool is for educational and illustrative purposes only. It does not represent actual or expected results, and is not investment advice, a recommendation, or an offer to sell or solicitation to buy any security or interest in any fund. Hypothetical simulations have inherent limitations and do not reflect fees, expenses, timing of cash flows, or risk. Past performance is not indicative of future results.
+            </p>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" checked={accepted} onChange={e=>setAccepted(e.target.checked)} />
+              I understand and agree.
+            </label>
+          </div>
+        </div>
+      )}
       <header className="space-y-2">
         <h1 className="text-3xl font-bold">Returns Estimator</h1>
         <p className="text-muted-foreground">Educational, illustrative models for public vs. private tech — AI / SaaS / General.</p>
@@ -54,15 +68,9 @@ export default function ReturnsEstimatorPage(){
         </select>
         <div>Capital Commitment: ${scenario.investment.toLocaleString()}</div>
         <div>Horizon: {scenario.horizon} yrs</div>
-        <div>Disclaimer: {accepted?'Accepted':'Not accepted'}</div>
       </div>
 
       <div className="space-y-6">
-        <div className="border rounded-2xl p-6 shadow-sm bg-background">
-          <p className="text-sm mb-2">This tool is for <strong>educational and illustrative purposes only</strong>. It does not represent actual or expected results and is not investment advice or an offer/solicitation. Hypothetical simulations have inherent limitations; they do not reflect fees, expenses, or cash-flow timing. Past performance is not indicative of future results.</p>
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={accepted} onChange={e=>setAccepted(e.target.checked)} />I understand and agree</label>
-        </div>
-
         <div className={blurCls+" space-y-6"}>
           <div className="border rounded-2xl p-6 shadow-sm bg-background">
             <h2 className="text-xl font-semibold mb-4">Investment Overview</h2>
