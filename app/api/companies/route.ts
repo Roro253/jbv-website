@@ -5,7 +5,7 @@ const REFRESH_SECONDS = 300; // 5 minutes
 const TTL_MS = REFRESH_SECONDS * 1000;
 const CACHE_CLEAR_TOKEN = process.env.CACHE_CLEAR_TOKEN;
 
-const BASE_ID = process.env.AIRTABLE_BASE_ID || process.env.AIRTABLE_BASE_ID || 'appAswQzYFHzmwqGH';
+const BASE_ID = process.env.AIRTABLE_BASE_ID || 'appAswQzYFHzmwqGH';
 const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Companies';
 const VIEW_NAME = process.env.AIRTABLE_VIEW_NAME || 'JBView (Live)';
 const API_KEY = process.env.AIRTABLE_API_KEY || process.env.AIRTABLE_API_TOKEN || process.env.AIRTABLE_PAT;
