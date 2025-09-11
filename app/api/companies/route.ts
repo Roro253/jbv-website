@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { simpleCache } from '@/lib/simpleCache';
 
-const REFRESH_SECONDS = 21600; // 6 hours
+const REFRESH_SECONDS = 300; // 5 minutes
 const TTL_MS = REFRESH_SECONDS * 1000;
+const CACHE_CLEAR_TOKEN = process.env.CACHE_CLEAR_TOKEN;
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID || process.env.AIRTABLE_BASE_ID || 'appAswQzYFHzmwqGH';
 const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Companies';
@@ -89,6 +90,15 @@ export async function GET(req: Request) {
       { status: 500, headers: { 'Cache-Control': 'no-store' } }
     );
   }
+}
+
+export async function POST(req: Request) {
+  const auth = req.headers.get('authorization') || '';
+  if (!CACHE_CLEAR_TOKEN || auth !== `Bearer ${CACHE_CLEAR_TOKEN}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  simpleCache.clear();
+  return NextResponse.json({ cleared: true });
 }
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

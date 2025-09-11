@@ -16,6 +16,14 @@ class SimpleCache {
   set<T>(key: string, value: T, ttlMs: number) {
     this.store.set(key, { value, expiresAt: Date.now() + ttlMs });
   }
+
+  clear(key?: string) {
+    if (typeof key === 'string') {
+      this.store.delete(key);
+    } else {
+      this.store.clear();
+    }
+  }
 }
 
 export const simpleCache = new SimpleCache();
