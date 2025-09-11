@@ -1,10 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Overview from '@/components/returns/Overview';
 import AnalysisSummary from '@/components/returns/AnalysisSummary';
-import DriversChart from '@/components/returns/DriversChart';
-import ReturnCalculator from '@/components/returns/ReturnCalculator';
-import PowerLawMini from '@/components/returns/PowerLawMini';
+const DriversChart = dynamic(() => import('@/components/returns/DriversChart'), { ssr: false });
+const ReturnCalculator = dynamic(() => import('@/components/returns/ReturnCalculator'), { ssr: false });
+const PowerLawMini = dynamic(() => import('@/components/returns/PowerLawMini'), { ssr: false });
 import { Scenario } from "@/components/returns/types";
 
 const lensPresets = {
