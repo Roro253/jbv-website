@@ -1,6 +1,6 @@
 'use client';
 import { useState, Dispatch, SetStateAction } from 'react';
-import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { Line, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { revenueProjection, sharesPurchased, exitMarketCap, exitSharePrice, moic, approxIRR } from '@/lib/returns/math';
 import { Scenario } from "./types";
 
@@ -44,55 +44,59 @@ export default function ReturnCalculator({ scenario, setScenario }: Props) {
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="flex flex-col text-sm">
+      <div className="grid gap-4 sm:grid-cols-2 min-w-0">
+        <label className="flex flex-col text-sm min-w-0">
           Investment Amount ($)
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.investment} onChange={handleNumber('investment')} />
         </label>
-        <label className="flex flex-col text-sm">
+        <label className="flex flex-col text-sm min-w-0">
           Share Price ($)
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.price} onChange={handleNumber('price')} />
         </label>
-        <label className="flex flex-col text-sm">
+        <label className="flex flex-col text-sm min-w-0">
           2025 NTM Revenue ($)
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.ntmRevenue} onChange={handleNumber('ntmRevenue')} />
         </label>
-        <label className="flex flex-col text-sm">
+        <label className="flex flex-col text-sm min-w-0">
           Growth Rate (%)
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.growthRate} onChange={handleNumber('growthRate')} />
         </label>
-        <label className="flex flex-col text-sm">
+        <label className="flex flex-col text-sm min-w-0">
           Horizon (years)
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.horizon} onChange={handleNumber('horizon')} />
         </label>
-        <label className="flex flex-col text-sm">
+        <label className="flex flex-col text-sm min-w-0">
           Fully Diluted Shares
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.fdShares} onChange={handleNumber('fdShares')} />
         </label>
-        <label className="flex flex-col text-sm">
+        <label className="flex flex-col text-sm min-w-0">
           Lower Bound Multiple
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.lowMultiple} onChange={handleNumber('lowMultiple')} />
         </label>
-        <label className="flex flex-col text-sm">
+        <label className="flex flex-col text-sm min-w-0">
           Higher Bound Multiple
           <input type="number" className="border rounded-md bg-background p-2" value={scenario.highMultiple} onChange={handleNumber('highMultiple')} />
         </label>
       </div>
-      <LineChart width={300} height={200} data={revProj}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="year" />
-        <YAxis />
-        <Tooltip />
-        <Line type="monotone" dataKey="rev" stroke="#8884d8" />
-      </LineChart>
-      <div className="flex gap-2">
+      <div className="min-w-0 overflow-visible" style={{ height: 360 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={revProj} margin={{ top: 8, right: 24, bottom: 32, left: 72 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" tickMargin={8} />
+            <YAxis tickMargin={8} />
+            <Tooltip />
+            <Line type="monotone" dataKey="rev" stroke="#8884d8" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="flex gap-2 min-w-0">
         <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md" onClick={compute}>Calculate Returns</button>
         <button className="px-4 py-2 border rounded-md" onClick={download}>Download scenario (JSON)</button>
       </div>
       {results && (
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-3 min-w-0">
           {['Low','Mid','High'].map((label,idx)=>(
-            <div key={label} className="border rounded-md p-2">
+            <div key={label} className="border rounded-md p-2 min-w-0">
               <div className="font-medium">{label}</div>
               <div className="text-sm">Exit Price: ${results.prices[idx].toFixed(2)}</div>
               <div className="text-sm">Portfolio Value: ${results.values[idx].toFixed(2)}</div>

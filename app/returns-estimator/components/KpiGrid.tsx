@@ -46,62 +46,56 @@ export default function KpiGrid({ data }: Props) {
   const capDelta = data.fmvMarketCap ? (data.investMktCap - data.fmvMarketCap) / data.fmvMarketCap : 0;
   const multDelta = data.mcapToNtmMultiple ? (data.investMultiple - data.mcapToNtmMultiple) / data.mcapToNtmMultiple : 0;
 
+  const metrics = [
+    { label: 'FMV per share', value: <span className="tabular-nums break-all">{currencyFmt.format(fmvPrice)}</span> },
+    { label: 'Fair Value Market Cap', value: <span className="tabular-nums break-all">{currencyFmt.format(fmvCap)}</span> },
+    { label: 'Market Cap / NTM Revenue', value: <span className="tabular-nums break-all">{mcapMultiple.toFixed(1)}×</span> },
+    {
+      label: 'Investment Price',
+      value: (
+        <>
+          <span className="tabular-nums break-all">{currencyFmt.format(investPrice)}</span>
+          <DeltaBadge delta={priceDelta} />
+        </>
+      ),
+    },
+    {
+      label: 'Investment Market Cap',
+      value: (
+        <>
+          <span className="tabular-nums break-all">{currencyFmt.format(investCap)}</span>
+          <DeltaBadge delta={capDelta} />
+        </>
+      ),
+    },
+    {
+      label: 'Investment Multiple',
+      value: (
+        <>
+          <span className="tabular-nums break-all">{investMultiple.toFixed(1)}×</span>
+          <DeltaBadge delta={multDelta} />
+        </>
+      ),
+    },
+    { label: 'Fully Diluted Shares', value: <span className="tabular-nums break-all">{numberFmt.format(shares)}</span> },
+    { label: 'NTM Revenue', value: <span className="tabular-nums break-all">{currencyFmt.format(ntmRev)}</span> },
+    { label: 'Last Funding Round', value: data.lastFundingRoundLabel },
+    { label: 'Current Growth Rate', value: <span className="tabular-nums break-all">{percentFmt.format(data.currentGrowthPct)}</span> },
+  ];
+
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <div className="rounded-2xl border shadow-sm p-6 space-y-2">
-        <div>
-          <h3 className="text-xs text-muted-foreground">FMV per share</h3>
-          <p className="text-sm font-semibold leading-tight">{currencyFmt.format(fmvPrice)}</p>
-        </div>
-        <div>
-          <h3 className="text-xs text-muted-foreground">Fair Value Market Cap</h3>
-          <p className="text-sm font-semibold leading-tight">{currencyFmt.format(fmvCap)}</p>
-        </div>
-        <div>
-          <h3 className="text-xs text-muted-foreground">Market Cap / NTM Revenue</h3>
-          <p className="text-sm font-semibold leading-tight">{mcapMultiple.toFixed(1)}×</p>
-        </div>
-      </div>
-      <div className="rounded-2xl border shadow-sm p-6 space-y-2">
-        <div>
-          <h3 className="text-xs text-muted-foreground">Investment Price</h3>
-          <p className="text-sm font-semibold leading-tight">
-            {currencyFmt.format(investPrice)}<DeltaBadge delta={priceDelta} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">
+      {metrics.map((m) => (
+        <div
+          key={m.label}
+          className="rounded-2xl border bg-white p-4 md:p-5 shadow-sm overflow-hidden min-w-0 space-y-1"
+        >
+          <p className="text-xs md:text-[13px] text-muted-foreground leading-snug">{m.label}</p>
+          <p className="text-base md:text-lg font-semibold tabular-nums leading-tight whitespace-normal break-words [word-break:break-word]">
+            {m.value}
           </p>
         </div>
-        <div>
-          <h3 className="text-xs text-muted-foreground">Investment Market Cap</h3>
-          <p className="text-sm font-semibold leading-tight">
-            {currencyFmt.format(investCap)}<DeltaBadge delta={capDelta} />
-          </p>
-        </div>
-        <div>
-          <h3 className="text-xs text-muted-foreground">Investment Multiple</h3>
-          <p className="text-sm font-semibold leading-tight">
-            {investMultiple.toFixed(1)}×<DeltaBadge delta={multDelta} />
-          </p>
-        </div>
-      </div>
-      <div className="rounded-2xl border shadow-sm p-6 space-y-2">
-        <div>
-          <h3 className="text-xs text-muted-foreground">Fully Diluted Shares</h3>
-          <p className="text-sm font-semibold leading-tight">{numberFmt.format(shares)}</p>
-        </div>
-        <div>
-          <h3 className="text-xs text-muted-foreground">NTM Revenue</h3>
-          <p className="text-sm font-semibold leading-tight">{currencyFmt.format(ntmRev)}</p>
-        </div>
-      </div>
-      <div className="rounded-2xl border shadow-sm p-6 space-y-2">
-        <div>
-          <h3 className="text-xs text-muted-foreground">Last Funding Round</h3>
-          <p className="text-sm font-semibold leading-tight">{data.lastFundingRoundLabel}</p>
-        </div>
-        <div>
-          <h3 className="text-xs text-muted-foreground">Current Growth Rate</h3>
-          <p className="text-sm font-semibold leading-tight">{percentFmt.format(data.currentGrowthPct)}</p>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
