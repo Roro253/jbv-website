@@ -50,56 +50,56 @@ export default function KpiGrid({ data }: Props) {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <div className="rounded-2xl border shadow-sm p-6 space-y-2">
         <div>
-          <h3 className="text-sm text-muted-foreground">FMV per share</h3>
-          <p className="text-xl font-semibold">{currencyFmt.format(fmvPrice)}</p>
+          <h3 className="text-xs text-muted-foreground">FMV per share</h3>
+          <p className="text-sm font-semibold leading-tight">{currencyFmt.format(fmvPrice)}</p>
         </div>
         <div>
-          <h3 className="text-sm text-muted-foreground">Fair Value Market Cap</h3>
-          <p className="text-xl font-semibold">{currencyFmt.format(fmvCap)}</p>
+          <h3 className="text-xs text-muted-foreground">Fair Value Market Cap</h3>
+          <p className="text-sm font-semibold leading-tight">{currencyFmt.format(fmvCap)}</p>
         </div>
         <div>
-          <h3 className="text-sm text-muted-foreground">Market Cap / NTM Revenue</h3>
-          <p className="text-xl font-semibold">{mcapMultiple.toFixed(1)}×</p>
+          <h3 className="text-xs text-muted-foreground">Market Cap / NTM Revenue</h3>
+          <p className="text-sm font-semibold leading-tight">{mcapMultiple.toFixed(1)}×</p>
         </div>
       </div>
       <div className="rounded-2xl border shadow-sm p-6 space-y-2">
         <div>
-          <h3 className="text-sm text-muted-foreground">Investment Price</h3>
-          <p className="text-xl font-semibold">
+          <h3 className="text-xs text-muted-foreground">Investment Price</h3>
+          <p className="text-sm font-semibold leading-tight">
             {currencyFmt.format(investPrice)}<DeltaBadge delta={priceDelta} />
           </p>
         </div>
         <div>
-          <h3 className="text-sm text-muted-foreground">Investment Market Cap</h3>
-          <p className="text-xl font-semibold">
+          <h3 className="text-xs text-muted-foreground">Investment Market Cap</h3>
+          <p className="text-sm font-semibold leading-tight">
             {currencyFmt.format(investCap)}<DeltaBadge delta={capDelta} />
           </p>
         </div>
         <div>
-          <h3 className="text-sm text-muted-foreground">Investment Multiple</h3>
-          <p className="text-xl font-semibold">
+          <h3 className="text-xs text-muted-foreground">Investment Multiple</h3>
+          <p className="text-sm font-semibold leading-tight">
             {investMultiple.toFixed(1)}×<DeltaBadge delta={multDelta} />
           </p>
         </div>
       </div>
       <div className="rounded-2xl border shadow-sm p-6 space-y-2">
         <div>
-          <h3 className="text-sm text-muted-foreground">Fully Diluted Shares</h3>
-          <p className="text-xl font-semibold">{numberFmt.format(shares)}</p>
+          <h3 className="text-xs text-muted-foreground">Fully Diluted Shares</h3>
+          <p className="text-sm font-semibold leading-tight">{numberFmt.format(shares)}</p>
         </div>
         <div>
-          <h3 className="text-sm text-muted-foreground">NTM Revenue</h3>
-          <p className="text-xl font-semibold">{currencyFmt.format(ntmRev)}</p>
+          <h3 className="text-xs text-muted-foreground">NTM Revenue</h3>
+          <p className="text-sm font-semibold leading-tight">{currencyFmt.format(ntmRev)}</p>
         </div>
       </div>
       <div className="rounded-2xl border shadow-sm p-6 space-y-2">
         <div>
-          <h3 className="text-sm text-muted-foreground">Last Funding Round</h3>
-          <p className="text-xl font-semibold">{data.lastFundingRoundLabel}</p>
+          <h3 className="text-xs text-muted-foreground">Last Funding Round</h3>
+          <p className="text-sm font-semibold leading-tight">{data.lastFundingRoundLabel}</p>
         </div>
         <div>
-          <h3 className="text-sm text-muted-foreground">Current Growth Rate</h3>
-          <p className="text-xl font-semibold">{percentFmt.format(data.currentGrowthPct)}</p>
+          <h3 className="text-xs text-muted-foreground">Current Growth Rate</h3>
+          <p className="text-sm font-semibold leading-tight">{percentFmt.format(data.currentGrowthPct)}</p>
         </div>
       </div>
     </div>
