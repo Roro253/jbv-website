@@ -1,16 +1,24 @@
 'use client';
 
+import dynamic from 'next/dynamic';
+
+// Load Plotly only on the client to avoid server-side bundle issues
+const Plot = dynamic(
+  async () => {
+    const Plotly = await import('plotly.js-basic-dist');
+    const createPlotlyComponent = (await import('react-plotly.js/factory')).default;
+    return createPlotlyComponent(Plotly);
+  },
+  { ssr: false }
+);
+
 export default function ResponsivePlot(props: any) {
-  if (typeof window === 'undefined') return null;
-  const Plotly = require('plotly.js-basic-dist');
-  const createPlotlyComponent = require('react-plotly.js/factory');
-  const Plot = createPlotlyComponent(Plotly);
   return (
     <Plot
       {...props}
       useResizeHandler
       style={{ width: '100%', height: '100%' }}
-      config={{ displayModeBar: false, ...props.config }}
+      config={{ displayModeBar: false, ...(props as any).config }}
     />
   );
 }
