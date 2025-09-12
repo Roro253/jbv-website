@@ -29,7 +29,11 @@ const numberFmt = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
 
 function DeltaBadge({ delta }: { delta: number }) {
   const cls = delta >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
-  return <span className={`ml-2 px-2 py-0.5 rounded text-xs ${cls}`}>{percentFmt.format(delta)}</span>;
+  return (
+    <span className={`inline-flex items-center px-2 py-1 rounded text-xs leading-none ${cls}`}>
+      {percentFmt.format(delta)}
+    </span>
+  );
 }
 
 export default function KpiGrid({ data }: Props) {
@@ -65,20 +69,23 @@ export default function KpiGrid({ data }: Props) {
       <div className="rounded-2xl border shadow-sm p-6 space-y-2">
         <div>
           <h3 className="text-xs text-muted-foreground">Investment Price</h3>
-          <p className="text-sm font-semibold leading-tight">
-            {currencyFmt.format(investPrice)}<DeltaBadge delta={priceDelta} />
+          <p className="flex items-center gap-2 text-sm font-semibold leading-tight">
+            {currencyFmt.format(investPrice)}
+            <DeltaBadge delta={priceDelta} />
           </p>
         </div>
         <div>
           <h3 className="text-xs text-muted-foreground">Investment Market Cap</h3>
-          <p className="text-sm font-semibold leading-tight">
-            {currencyFmt.format(investCap)}<DeltaBadge delta={capDelta} />
+          <p className="flex items-center gap-2 text-sm font-semibold leading-tight">
+            {currencyFmt.format(investCap)}
+            <DeltaBadge delta={capDelta} />
           </p>
         </div>
         <div>
           <h3 className="text-xs text-muted-foreground">Investment Multiple</h3>
-          <p className="text-sm font-semibold leading-tight">
-            {investMultiple.toFixed(1)}×<DeltaBadge delta={multDelta} />
+          <p className="flex items-center gap-2 text-sm font-semibold leading-tight">
+            {investMultiple.toFixed(1)}×
+            <DeltaBadge delta={multDelta} />
           </p>
         </div>
       </div>
