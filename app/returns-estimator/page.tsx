@@ -76,8 +76,8 @@ export default function ReturnsEstimatorPage(){
       </div>
 
       <div className="space-y-6">
-        <div className={blurCls + " grid lg:grid-cols-2 gap-6"}>
-          <div className="space-y-6">
+        <section className={blurCls + " grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(360px,420px)] gap-6"}>
+          <div className="space-y-6 min-w-0">
             <div className="border rounded-2xl p-6 shadow-sm bg-background">
               <h2 className="text-xl font-semibold mb-4">Investment Overview</h2>
               <Overview scenario={scenario} setScenario={setScenario} />
@@ -90,21 +90,17 @@ export default function ReturnsEstimatorPage(){
               <PowerLawMini initial={{deals:10, hitRate:lensPresets[lens].hitRatePct, alpha:lensPresets[lens].alpha, xmin:lensPresets[lens].xminExit, trials:1000}} />
             </div>
           </div>
-          <div className="space-y-6">
-            {kpis && (
-              <div className="border rounded-2xl p-6 shadow-sm bg-background">
-                <KpiGrid data={kpis} />
-              </div>
-            )}
-            <div className="border rounded-2xl p-6 shadow-sm bg-background">
+          <aside className="space-y-6 min-w-0">
+            {kpis && <KpiGrid data={kpis} />}
+            <div className="rounded-2xl border bg-white p-4 md:p-5 shadow-sm min-w-0 overflow-visible">
               <AnalysisAccordion />
             </div>
-            <div className="border rounded-2xl p-6 shadow-sm bg-background">
-              <h2 className="text-xl font-semibold mb-4">Investment Return Calculator</h2>
+            <div className="rounded-2xl border bg-white p-4 md:p-5 shadow-sm min-w-0 overflow-visible">
+              <h2 className="text-xl font-semibold mb-4 leading-tight">Investment Return Calculator</h2>
               <ReturnCalculator scenario={scenario} setScenario={setScenario} />
             </div>
-          </div>
-        </div>
+          </aside>
+        </section>
         <p className="text-xs text-muted-foreground">For illustration only; models do not store data.</p>
       </div>
     </div>
