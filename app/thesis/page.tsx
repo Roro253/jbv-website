@@ -76,7 +76,9 @@ export default function ThesisPage() {
             {phases.map((phase, idx) => (
               <motion.div
                 key={phase.title}
-                ref={el => (phaseRefs.current[idx] = el)}
+                ref={(el) => {
+                  phaseRefs.current[idx] = el;
+                }}
                 className={`rounded-2xl shadow-lg shadow-soft p-6 md:p-8 bg-white ${selected === idx ? 'ring-2 ring-brand-500' : ''}`}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
