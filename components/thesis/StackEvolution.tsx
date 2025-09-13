@@ -82,7 +82,7 @@ export default function StackEvolution() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const { w: width, h: height } = useDims(wrapRef);
   // Ensure tall enough box on small screens via min-h class below; step derived from actual height
-  const step = Math.min(Math.max(96, Math.floor(height * 0.24)), 160);
+  const step = Math.min(Math.max(120, Math.floor(height * 0.25)), 180);
   const [hovered, setHovered] = useState<number | null>(null);
 
   const max = useMemo(() => Math.max(...PHASES.map((p) => p.value)), []);
@@ -120,8 +120,20 @@ export default function StackEvolution() {
             {/* slow vertical drift (container translates on Y) */}
             <motion.div
               className="absolute inset-0 transform-gpu will-change-transform"
-              animate={prefersReduced ? {} : { y: [-8, 8] }}
-              transition={prefersReduced ? {} : { duration: 16, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
+              animate={
+                prefersReduced
+                  ? {}
+                  : hovered !== null
+                    ? { y: 0 }
+                    : { y: [-8, 8] }
+              }
+              transition={
+                prefersReduced
+                  ? {}
+                  : hovered !== null
+                    ? { duration: 0.4, ease: 'easeInOut' }
+                    : { duration: 16, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }
+              }
             >
               {PHASES.map((p, i) => {
                 const x = 0; // centered horizontally
@@ -141,7 +153,8 @@ export default function StackEvolution() {
                     onClick={() => setActive(p.key)}
                     onHoverStart={() => setHovered(i)}
                     onHoverEnd={() => setHovered(null)}
-                    whileHover={{}}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                     whileTap={{ scale: 0.98 }}
                     aria-pressed={selected}
                   >
