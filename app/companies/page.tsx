@@ -1,7 +1,7 @@
 'use client';
 export const dynamic = "force-dynamic";
 import { Suspense, useMemo, useState, useEffect } from "react";
-import { companies, sectors } from "@/lib/companies";
+import { companies } from "@/lib/companies";
 import FilterChips from "@/components/FilterChips";
 import CompaniesGridA16z from "@/components/companies/CompaniesGridA16z";
 import CompanyModalA16z from "@/components/companies/CompanyModalA16z";
@@ -64,10 +64,16 @@ function CompaniesPageInner() {
   const dataCompanies = Array.isArray(remote) && remote.length > 0 ? remote : companies;
   // JBV: COMPANIES DATA WIRE-UP END
   const [sector, setSector] = useState<string>("All");
-  const chipOptions = useMemo(
-    () => sectors.filter((s) => !["Biotech", "Consumer", "Crypto", "Healthcare", "Insurance"].includes(String(s))),
-    []
-  );
+  const chipOptions = useMemo(() => {
+    const s = new Set<string>();
+    dataCompanies.forEach((c: any) => {
+      if (c.sector) s.add(String(c.sector));
+    });
+    const arr = Array.from(s).filter(
+      (val) => !["Biotech", "Consumer", "Crypto", "Healthcare", "Insurance"].includes(String(val))
+    );
+    return ["All", ...arr];
+  }, [dataCompanies]);
   const filtered = useMemo(() => {
     return sector === "All" ? dataCompanies : dataCompanies.filter(c => c.sector === sector);
   }, [sector, dataCompanies]);
