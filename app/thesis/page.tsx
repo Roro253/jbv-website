@@ -1,92 +1,162 @@
+"use client";
 export const dynamic = "force-dynamic";
-import React from "react";
-import StackEvolution from '@/components/thesis/StackEvolution';
+import React, { useRef, useState } from "react";
 import nextDynamic from "next/dynamic";
-const ThesisBackground = nextDynamic(() => import('@/components/thesis/bg/ThesisBackground'), { ssr: false });
-const Reveal = nextDynamic(() => import('@/components/anim/Reveal'), { ssr: false });
-import StartupStack from '@/components/thesis/StartupStack';
+import { motion } from "framer-motion";
+import { PhaseList, KPIBar, Scorecard, SourcesDisclosure, AdoptionDonut } from "./ThesisSections";
+import { sources } from "./sources";
+
+const ThesisBackground = nextDynamic(() => import("@/components/thesis/bg/ThesisBackground"), { ssr: false });
+
+interface Phase {
+  title: string;
+  why: string;
+  doNow: string;
+  benchmarks: string[];
+}
+
+const phases: Phase[] = [
+  {
+    title: "Phase 1 — Insight & Founders (Foundation)",
+    why: "Teams with a non-obvious insight and fast ship cadence compound advantage in every later layer.",
+    doNow: "30–100 customer interviews; weekly demo cadence; recruit 2–3 design partners.",
+    benchmarks: [
+      "time-to-first working demo ≤ 4–6 weeks",
+      "3–10 design partners"
+    ]
+  },
+  {
+    title: "Phase 2 — Access & Distribution (Go-to-Market Infrastructure)",
+    why: "One repeatable low-cost channel beats three mediocre ones.",
+    doNow: "Pick one primary channel; instrument activation; weekly funnel reviews.",
+    benchmarks: [
+      "CAC payback trending to category norms (SMB often < 12–18m; enterprise < 24m) and improving MoM"
+    ]
+  },
+  {
+    title: "Phase 3 — Product Engine & Habit (Models)",
+    why: "Durable usage via a core loop (flywheel/lock-in/network effects) is the engine of power laws.",
+    doNow: "Reduce setup friction; deliver one hero outcome; add 2–3 retention hooks (saved state, integrations, alerts).",
+    benchmarks: [
+      "Sean Ellis PMF signal ≥ 40% “very disappointed”",
+      "cohort retention curve flattening"
+    ]
+  },
+  {
+    title: "Phase 4 — Monetization, Moat & Scale (Applications)",
+    why: "With habit formed, pricing power and defensibility appear; then you scale responsibly.",
+    doNow: "Price testing; payback discipline; moat building (data advantage, integrations, ecosystem).",
+    benchmarks: [
+      "Positive payback at small scale",
+      "churn ↓; NRR ↑; margins expand"
+    ]
+  }
+];
 
 export default function ThesisPage() {
+  const [selected, setSelected] = useState(0);
+  const phaseRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  const handleSelect = (i: number) => {
+    setSelected(i);
+    phaseRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <main className="relative bg-white text-slate-900">
       <ThesisBackground />
-      {/* Futuristic light background */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 -left-24 h-[40rem] w-[40rem] rounded-full blur-3xl opacity-40 bg-gradient-to-br from-sky-100 to-blue-200 animate-[float_24s_ease-in-out_infinite] motion-reduce:animate-none" />
-        <div className="absolute -bottom-24 -right-16 h-[36rem] w-[36rem] rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-blue-50 to-cyan-200 animate-[float_30s_ease-in-out_infinite_reverse] motion-reduce:animate-none" />
-        <div className="absolute inset-0 opacity-30" style={{backgroundImage:"radial-gradient(rgba(15,23,42,0.06) 1px, transparent 1px), radial-gradient(rgba(15,23,42,0.04) 1px, transparent 1px)",backgroundSize:"26px 26px, 52px 52px",backgroundPosition:"0 0, 13px 13px",animation:"thesisDots 22s linear infinite"}} />
-        <style>{`@keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-16px) } } @keyframes thesisDots { from { transform: translateY(0) } to { transform: translateY(-26px) } }`}</style>
+      <div className="container-6xl py-16 relative">
+        <AdoptionDonut progress={(selected + 1) / phases.length} />
+        <h1 className="text-3xl md:text-5xl font-semibold tracking-tight max-w-4xl">
+          Startup Power Law Emergence: Company-Building Stack
+        </h1>
+        <PhaseList phases={phases.map(p => p.title)} selected={selected} onSelect={handleSelect} />
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-7 space-y-8">
+            {phases.map((phase, idx) => (
+              <motion.div
+                key={phase.title}
+                ref={(el) => {
+                  phaseRefs.current[idx] = el;
+                }}
+                className={`rounded-2xl shadow-lg shadow-soft p-6 md:p-8 bg-white ${selected === idx ? 'ring-2 ring-brand-500' : ''}`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <h2 className="text-lg font-semibold">{phase.title}</h2>
+                <div className="mt-4 space-y-4 text-sm text-slate-600">
+                  <div>
+                    <h3 className="font-medium">Why it matters:</h3>
+                    <p>{phase.why}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-medium">Do now:</h3>
+                    <p>{phase.doNow}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-medium">Benchmarks:</h3>
+                    <ul className="list-disc pl-4">
+                      {phase.benchmarks.map(b => (
+                        <li key={b}>{b}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          <div className="lg:col-span-5 space-y-8">
+            <motion.div
+              className="rounded-2xl shadow-lg shadow-soft p-6 md:p-8 bg-white"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <h2 className="text-lg font-semibold">Stack Building Insight (AI):</h2>
+              <p className="mt-2 text-sm text-slate-600">
+                Power concentrates bottom-up. Semiconductors → infrastructure → models → applications. The binding constraint is increasingly physical (compute, power, supply chain). Winners scale infra reliably and translate it into compounding product loops.
+              </p>
+              <h3 className="mt-6 font-medium">AI Power Law Emergence: Tech Stack Evolution</h3>
+              <div className="mt-4 space-y-4 text-sm text-slate-600">
+                <div>
+                  <h4 className="font-medium">Phase 1: Semiconductors (2020–2025):</h4>
+                  <p>NVIDIA establishes AI accelerator dominance; capex wave begins.</p>
+                </div>
+                <div>
+                  <h4 className="font-medium">Phase 2: Infrastructure (2022–2026):</h4>
+                  <p>Data-center/network build accelerates; energy becomes a constraint.</p>
+                </div>
+                <div>
+                  <h4 className="font-medium">Phase 3: Models (2023–2027):</h4>
+                  <p>Foundation/domain models commercialize; tooling/ops mature.</p>
+                </div>
+                <div>
+                  <h4 className="font-medium">Phase 4: Applications (2025–2030):</h4>
+                  <p>Moats shift to workflow, distribution, and data; next 40× opportunities in verticals.</p>
+                </div>
+              </div>
+              <div className="mt-6 space-y-3">
+                <KPIBar label="Phase 1" value={100} note="2020–2025" />
+                <KPIBar label="Phase 2" value={60} note="2022–2026" />
+                <KPIBar label="Phase 3" value={40} note="2023–2027" />
+                <KPIBar label="Phase 4" value={20} note="2025–2030" />
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Scorecard />
+            </motion.div>
+          </div>
+        </div>
+        <SourcesDisclosure sources={sources} />
       </div>
-      {/* Animated dot matrix background */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
-          backgroundSize: "28px 28px, 56px 56px",
-          backgroundPosition: "0 0, 14px 14px",
-          animation: "thesisDots 18s linear infinite"
-        }} />
-        <style>{`@keyframes thesisDots { from { transform: translateY(0) } to { transform: translateY(-28px) } }`}</style>
-      </div>
-      <section className="relative z-10 min-h-[56vh] flex items-center">
-        <div className="container-6xl py-20">
-          <Reveal>
-            <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">Our Thesis</h1>
-          </Reveal>
-          <Reveal delay={0.08}><p className="mt-4 max-w-2xl text-slate-600 text-lg">
-            We partner with founders from seed through early stages across AI, enterprise, fintech, consumer, and more.
-          </p></Reveal>
-        </div>
-      </section>
-      <section id="build-stack" className="scroll-mt-24"><StartupStack/></section>
-      <section id="stack" className="scroll-mt-24"><StackEvolution/></section>
-      <section className="relative z-10 border-t border-slate-200/60 bg-white/70 backdrop-blur">
-        <div className="container-6xl py-16">
-          <div className="grid md:grid-cols-3 gap-10 items-start">
-            <div className="md:col-span-1">
-              <Reveal><h2 className="text-xl font-semibold">What we do</h2></Reveal>
-            </div>
-            <div className="md:col-span-2">
-              <Reveal delay={0.06}><p className="text-slate-600 leading-7 max-w-2xl">
-                We partner with founders from seed through early stages across AI, enterprise, fintech, consumer, and more.
-                This starter focuses on layout, navigation, and animation patterns—not content.
-              </p></Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="relative z-10 border-t border-slate-200/60 bg-gradient-to-b from-white to-sky-50/40">
-        <div className="container-6xl py-16">
-          <div className="grid md:grid-cols-3 gap-10 items-start">
-            <div className="md:col-span-1">
-              <Reveal><h2 className="text-xl font-semibold">Approach</h2></Reveal>
-            </div>
-            <div className="md:col-span-2">
-              <Reveal delay={0.06}><p className="text-slate-600 leading-7 max-w-2xl">
-                We move early, back exceptional teams, and help them compound advantages—product, go-to-market, and talent—
-                while staying focused on durable value creation.
-              </p></Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="relative z-10 border-t border-slate-200/60 bg-white">
-        <div className="container-6xl py-16">
-          <div className="grid md:grid-cols-3 gap-10 items-start">
-            <div className="md:col-span-1">
-              <Reveal><h2 className="text-xl font-semibold">Focus Areas</h2></Reveal>
-            </div>
-            <div className="md:col-span-2">
-              <Reveal delay={0.06}><ul className="grid sm:grid-cols-2 gap-3 text-slate-600">
-                <li className="rounded-xl border border-slate-200 bg-sky-50/60 px-4 py-3">AI & Applied AI</li>
-                <li className="rounded-xl border border-slate-200 bg-sky-50/60 px-4 py-3">Enterprise Software</li>
-                <li className="rounded-xl border border-slate-200 bg-sky-50/60 px-4 py-3">Fintech & Infrastructure</li>
-                <li className="rounded-xl border border-slate-200 bg-sky-50/60 px-4 py-3">Consumer & Community</li>
-              </ul></Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
