@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Source } from "./sources";
 
@@ -16,6 +16,8 @@ export function PhaseList({ phases, selected, onSelect }: { phases: string[]; se
             selected === i ? "bg-brand-100 text-brand-700 border-brand-300" : "bg-white text-slate-600"
           }`}
           animate={selected === i && !shouldReduceMotion ? { scale: [1.02, 1] } : {}}
+          whileHover={!shouldReduceMotion ? { scale: 1.02, boxShadow: "0 2px 6px rgba(0,0,0,0.08)" } : {}}
+          whileFocus={!shouldReduceMotion ? { scale: 1.02, boxShadow: "0 2px 6px rgba(0,0,0,0.08)" } : {}}
         >
           Phase {i + 1}
         </motion.button>
@@ -25,6 +27,7 @@ export function PhaseList({ phases, selected, onSelect }: { phases: string[]; se
 }
 
 export function KPIBar({ label, value, note }: { label: string; value: number; note?: string }) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <div className="space-y-1">
       <div className="flex items-center gap-2 text-sm">
@@ -35,50 +38,14 @@ export function KPIBar({ label, value, note }: { label: string; value: number; n
           </span>
         )}
       </div>
-      <div className="h-2 w-full rounded-full bg-slate-200">
-        <div className="h-full rounded-full bg-brand-500" style={{ width: `${value}%` }} />
+      <div className="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+        <motion.div
+          className="h-full rounded-full bg-brand-500"
+          initial={{ width: 0 }}
+          animate={{ width: `${value}%` }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: "easeOut" }}
+        />
       </div>
-    </div>
-  );
-}
-
-export function Scorecard() {
-  const [scores, setScores] = useState([0, 0, 0, 0]);
-  const total = scores.reduce((a, b) => a + b, 0);
-  const label = total < 9 ? "iterate with focus" : "keep compounding";
-  return (
-    <div className="rounded-2xl shadow-lg shadow-soft p-6 md:p-8 bg-white">
-      <h3 className="text-lg font-semibold">Quick Scorecard (monthly, 0–3)</h3>
-      {['Thesis & speed', 'Distribution', 'Product loop', 'Economics'].map((name, idx) => (
-        <div key={name} className="mt-4">
-          <label className="flex justify-between text-sm mb-1" htmlFor={`score-${idx}`}>
-            <span>{name}</span>
-            <span>{scores[idx]}</span>
-          </label>
-          <input
-            id={`score-${idx}`}
-            aria-label={name}
-            type="range"
-            min={0}
-            max={3}
-            step={1}
-            value={scores[idx]}
-            onChange={(e) => {
-              const next = [...scores];
-              next[idx] = Number(e.target.value);
-              setScores(next);
-            }}
-            className="w-full accent-brand-500"
-          />
-        </div>
-      ))}
-      <div className="mt-6 text-sm font-medium">Total: {total} / 12</div>
-      <button
-        aria-label="scorecard action"
-        className="mt-2 rounded-md bg-brand-600 px-4 py-2 text-sm text-white"
-      >
-        {label}
-      </button>
     </div>
   );
 }
@@ -123,7 +90,8 @@ export function AdoptionDonut({ progress }: { progress: number }) {
           fill="none"
           strokeLinecap="round"
           initial={{ pathLength: 0 }}
-          animate={isInView && !shouldReduceMotion ? { pathLength: progress } : { pathLength: progress }}
+          animate={{ pathLength: isInView ? progress : 0 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 1.2, ease: "easeOut" }}
         />
         <defs>
           <linearGradient id="gradient" x1="0" x2="1" y1="1" y2="0">
