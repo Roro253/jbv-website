@@ -46,5 +46,27 @@ export const companies: Company[] = [
     url: "https://www.databricks.com",
     note: "Lakehouse platform · ~$62B val · 2025 ARR ~$3.7B",
     featured: true
+  },
+  {
+    name: "Placer.ai",
+    sector: "Enterprise",
+    stage: "Series C",
+    url: "https://www.placer.ai",
+    note: "Location analytics platform delivering competitive insights",
+    featured: true
+  },
+  {
+    name: "Genway.ai",
+    sector: "AI",
+    stage: "Seed",
+    url: "https://www.genway.ai",
+    note: "AI-native life sciences data and discovery tools"
+  },
+  {
+    name: "Leela.ai",
+    sector: "AI",
+    stage: "Series A",
+    url: "https://leela.ai",
+    note: "Visual intelligence for manufacturing and industrial operations"
   }
 ];

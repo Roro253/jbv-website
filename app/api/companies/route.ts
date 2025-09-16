@@ -6,9 +6,10 @@ const TTL_MS = REFRESH_SECONDS * 1000;
 const CACHE_CLEAR_TOKEN = process.env.CACHE_CLEAR_TOKEN;
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID || 'appAswQzYFHzmwqGH';
-const TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Companies';
-// Do not default to a specific view so new records aren't inadvertently hidden
-const VIEW_NAME = process.env.AIRTABLE_VIEW_NAME;
+const TABLE_REF =
+  process.env.AIRTABLE_TABLE_ID || process.env.AIRTABLE_TABLE_NAME || 'tblHv4IX3FTYailPA';
+// Default to the production view so the site mirrors the Airtable view ordering/filtering
+const VIEW_REF = process.env.AIRTABLE_VIEW_ID || process.env.AIRTABLE_VIEW_NAME || 'viwD9Z9qoJkqREbrJ';
 const API_KEY = process.env.AIRTABLE_API_KEY || process.env.AIRTABLE_API_TOKEN || process.env.AIRTABLE_PAT;
 
 type AirtableRecord = { id: string; fields: Record<string, any> };
@@ -49,8 +50,8 @@ export async function GET(req: Request) {
   const offset = searchParams.get('offset') || '';
 
   const apiUrl = `https://api.airtable.com/v0/${encodeURIComponent(BASE_ID)}/${encodeURIComponent(
-    TABLE_NAME
-  )}?pageSize=50${VIEW_NAME ? `&view=${encodeURIComponent(VIEW_NAME)}` : ''}${offset ? `&offset=${encodeURIComponent(offset)}` : ''}`;
+    TABLE_REF
+  )}?pageSize=50${VIEW_REF ? `&view=${encodeURIComponent(VIEW_REF)}` : ''}${offset ? `&offset=${encodeURIComponent(offset)}` : ''}`;
 
   const cacheKey = apiUrl;
   const cached = simpleCache.get<any>(cacheKey);
