@@ -76,12 +76,12 @@ export default function FounderSpotlights() {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
-      className="relative overflow-hidden border-t border-slate-900/10 bg-gradient-to-b from-slate-950 via-[#050b18] to-[#03050b] py-20 text-white sm:py-24 dark:border-white/10"
+      className="relative overflow-hidden border-t border-slate-200 bg-gradient-to-b from-white via-sky-50 to-blue-100/40 py-20 text-slate-900 sm:py-24"
     >
       <div aria-hidden className={backgroundGridClasses}>
-        <div className="absolute inset-0 opacity-[0.22] [background-image:radial-gradient(circle,_rgba(56,189,248,0.18)_1px,transparent_1px)] [background-size:44px_44px]" />
+        <div className="absolute inset-0 opacity-[0.22] [background-image:radial-gradient(circle,_rgba(96,165,250,0.2)_1px,transparent_1px)] [background-size:44px_44px]" />
         <div className="absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(148,163,184,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.12)_1px,transparent_1px)] [background-size:120px_120px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-200/40 via-transparent to-transparent" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6">
@@ -90,7 +90,7 @@ export default function FounderSpotlights() {
             aria-hidden
             className="pointer-events-none absolute inset-x-0 -top-12 -z-10 h-24 overflow-hidden opacity-[0.08]"
           >
-            <div className="spotlight-marquee flex min-w-full items-center gap-16 text-4xl font-semibold uppercase tracking-[0.65em] text-white">
+            <div className="spotlight-marquee flex min-w-full items-center gap-16 text-4xl font-semibold uppercase tracking-[0.65em] text-slate-300">
               {Array.from({ length: 2 }).map((_, loopIndex) => (
                 <div key={loopIndex} className="flex items-center gap-16">
                   {founderPosts.map((post) => (
@@ -107,7 +107,7 @@ export default function FounderSpotlights() {
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
               Founders’ Field Notes
             </h2>
-            <p className="max-w-2xl text-base text-white/70 sm:text-lg">
+            <p className="max-w-2xl text-base text-slate-600 sm:text-lg">
               Fresh thinking from builders we back
             </p>
           </div>
@@ -119,7 +119,7 @@ export default function FounderSpotlights() {
         className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 px-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3"
       >
         {founderPosts.map((post) => {
-          const accentClasses = post.accent ?? "from-slate-600 via-slate-800 to-slate-950";
+          const accentClasses = post.accent ?? "from-sky-200 via-blue-100 to-white";
 
           return (
             <MotionLink
@@ -128,7 +128,7 @@ export default function FounderSpotlights() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Read ‘${post.title}’ by ${post.author} at ${post.company}`}
-              className="spotlight-card group relative aspect-[16/10] overflow-hidden rounded-3xl bg-black/5 ring-1 ring-white/10 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.45)] transition-transform duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900/60"
+              className="spotlight-card group relative aspect-[16/10] overflow-hidden rounded-3xl bg-white/80 ring-1 ring-slate-200 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.2)] transition-transform duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-100"
               variants={cardVariants}
               whileHover={
                 shouldReduceMotion
@@ -157,28 +157,28 @@ export default function FounderSpotlights() {
                 ) : (
                   <div className={clsx("absolute inset-0 bg-gradient-to-tr opacity-90", accentClasses)} />
                 )}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(15,23,42,0.65),_transparent_65%)]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
-                <div className="absolute inset-0 opacity-30 mix-blend-soft-light [background-image:radial-gradient(circle,_rgba(255,255,255,0.4)_0.5px,transparent_0.5px)] [background-size:6px_6px]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(125,211,252,0.35),_transparent_65%)]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent" />
+                <div className="absolute inset-0 opacity-40 mix-blend-soft-light [background-image:radial-gradient(circle,_rgba(59,130,246,0.35)_0.5px,transparent_0.5px)] [background-size:6px_6px]" />
               </div>
 
               <div className="pointer-events-none absolute top-4 right-4 z-[3]">
-                <div className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs font-medium uppercase tracking-wide text-white/80 backdrop-blur">
+                <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-medium uppercase tracking-wide text-slate-600 backdrop-blur">
                   Read
                   <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
                 </div>
               </div>
 
-              <div className="pointer-events-none absolute inset-x-4 bottom-4 z-[3] rounded-2xl bg-black/30 p-4 backdrop-blur-md">
-                <div className="text-xs font-semibold uppercase tracking-wide text-white/80 sm:text-sm">
+              <div className="pointer-events-none absolute inset-x-4 bottom-4 z-[3] rounded-2xl bg-white/90 p-4 backdrop-blur-md">
+                <div className="text-xs font-semibold uppercase tracking-wide text-slate-600 sm:text-sm">
                   {post.author}
-                  <span className="mx-1.5 text-white/50">•</span>
+                  <span className="mx-1.5 text-slate-400">•</span>
                   {post.company}
                 </div>
-                <h3 className="mt-2 text-xl font-semibold leading-tight text-white sm:text-2xl">
+                <h3 className="mt-2 text-xl font-semibold leading-tight text-slate-900 sm:text-2xl">
                   {post.title}
                 </h3>
-                <p className="line-clamp-2 mt-1 translate-y-2 text-sm text-white/90 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-75 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 sm:text-base">
+                <p className="line-clamp-2 mt-1 translate-y-2 text-sm text-slate-600 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-hover:delay-75 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 sm:text-base">
                   {post.summary}
                 </p>
               </div>
