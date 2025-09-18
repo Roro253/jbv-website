@@ -1,7 +1,8 @@
 import Link from "next/link";
 import HeroBackground from "@/components/HeroBackground";
-import StackCarousel from "@/components/StackCarousel";
 import ParticleSphere from "@/components/ParticleSphere";
+import StackCarousel from "@/components/StackCarousel";
+import FounderSpotlights from "@/components/about/FounderSpotlights";
 
 export default function Home() {
   return (
@@ -148,6 +149,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <FounderSpotlights />
     </main>
   );
 }
