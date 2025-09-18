@@ -27,10 +27,12 @@ function coverFor(record: RecordType) {
 
 export default function CompaniesGridA16z({ items, onOpen }: { items: RecordType[]; onOpen: (id: string) => void }) {
   return (
-    <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3" aria-label="Companies">
-      {items.map((r) => (
-        <CompanyCardA16z key={r.id} record={r} onOpen={onOpen} cover={coverFor(r)} />
-      ))}
-    </div>
+    <section aria-label="Companies" className="px-2 sm:px-4 md:px-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-7">
+        {items.map((r) => (
+          <CompanyCardA16z key={r.id} record={r} onOpen={onOpen} cover={coverFor(r)} />
+        ))}
+      </div>
+    </section>
   );
 }
