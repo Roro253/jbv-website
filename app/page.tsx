@@ -2,6 +2,7 @@ import Link from "next/link";
 import HeroBackground from "@/components/HeroBackground";
 import StackCarousel from "@/components/StackCarousel";
 import ParticleSphere from "@/components/ParticleSphere";
+import FounderStorybook from "@/components/about/FounderStorybook";
 
 export default function Home() {
   return (
@@ -148,6 +149,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <FounderStorybook />
     </main>
   );
 }
