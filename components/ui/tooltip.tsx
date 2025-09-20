@@ -15,15 +15,17 @@ export const TooltipContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
 >(function TooltipContent({ className, sideOffset = 8, ...props }, ref) {
   return (
-    <TooltipPrimitive.Content
-      ref={ref}
-      sideOffset={sideOffset}
-      className={clsx(
-        'z-50 overflow-hidden rounded-xl border border-slate-200/70 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg shadow-slate-900/10 backdrop-blur',
-        className
-      )}
-      {...props}
-    />
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Content
+        ref={ref}
+        sideOffset={sideOffset}
+        className={clsx(
+          'z-50 overflow-hidden rounded-xl border border-slate-200/70 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg shadow-slate-900/10 backdrop-blur',
+          className
+        )}
+        {...props}
+      />
+    </TooltipPrimitive.Portal>
   );
 });
 
