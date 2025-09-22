@@ -10,6 +10,7 @@ import PerplexityCover from "@/components/companyCovers/PerplexityCover";
 import DatabricksCover from "@/components/companyCovers/DatabricksCover";
 import LovableCover from "@/components/companyCovers/LovableCover";
 import LeelaCover from "@/components/companyCovers/LeelaCover";
+import GenwayCover from "@/components/companyCovers/GenwayCover";
 import DefaultCover from "@/components/companyCovers/DefaultCover";
 
 type RecordType = { id: string; fields: Record<string, any>; logoUrl?: string };
@@ -25,6 +26,7 @@ function coverFor(record: RecordType): ReactNode {
   if (key.includes("databrick")) return <DatabricksCover />;
   if (key.includes("lovable")) return <LovableCover />;
   if (key.includes("leela")) return <LeelaCover />;
+  if (key.includes("genway")) return <GenwayCover />;
   return <DefaultCover />;
 }
 
